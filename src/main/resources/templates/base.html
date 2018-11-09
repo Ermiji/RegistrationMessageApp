@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+
+    <th:block th:fragment="header">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+        <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+        <link  rel="stylesheet" th:href="@{/css/style.css}"/>
+    </th:block>
+</head>
+<body>
+
+<div th:fragment="nav">
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <a class="navbar-brand font-weight-bold" href="/">&nbsp;&nbsp;Messaging app</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+
+            <ul class="navbar-nav">
+                <li sec:authorize="isAuthenticated()" class="nav-link text-warning" th:inline="text">
+                    Welcome [[${#authentication.name}]]!
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item text-light active" th:inline="text">
+                    <a href="/logout"> Log out</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item text-light active" th:inline="text">
+                    <a href="/"> Home </a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item text-light active" th:inline="text">
+                    <a href="/addMessage"> Add a Message </a>
+                </li>
+
+                <li class="nav-item">
+                    <a sec:authorize="!isAuthenticated()" class="nav-link " href="/login">login</a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="!isAuthenticated()" class="nav-link " href="/">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a sec:authorize="!isAuthenticated()" class="nav-link " href="/register">Register </a>
+                </li>
+
+            </ul>
+        </div>
+
+    </nav>
+</div>
+
+<div th:fragment="footer">
+    <div class="footer">
+        <h6>&copy; 2018 Ermias </h6>
+    </div>
+</div>
+</body>
+</html>

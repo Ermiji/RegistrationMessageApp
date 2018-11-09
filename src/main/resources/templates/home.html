@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<
+<head>
+    <title>Home Page</title>
+    <th:block th:insert="base :: header"></th:block>
+</head>
+<body>
+
+<div th:replace="base :: nav"></div>
+
+<div class="container">
+    <div class="text-center text-orange">
+        <br/>
+        <br/>
+        <h1>
+            Welcome to Code Work Academy Messaging App!
+        </h1>
+    </div>
+    <br/>
+    <br/>
+    <div class="jumbotron text-center">
+        <div class="text-center">
+            <h3> List of Messages </h3>
+        </div>
+        <br/>
+        <table class="table table-borderless table-hover shadow mb-4 bg-white">
+            <tr>
+                <th><strong> Content </strong>&nbsp;&nbsp;</th>
+                <th><strong>Sent by </strong>&nbsp;&nbsp;</th>
+                <th><strong>Date </strong> &nbsp;&nbsp;</th>
+            </tr>
+
+            <tr th:each="message : ${messages}">
+                <td th:text="${message.content}"></td>
+                <td th:text="${message.sender}"></td>
+                <td th:text="${message.date}"></td>
+                <td>
+                    <div sec:authorize="isAuthenticated()" class="nav-link text-warning" th:inline="text">
+                        <a th:href="@{/detail/{id}(id=${message.id})}" class="btn btn-outline-success"> <strong>Details</strong> </a>
+                    </div>
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/delete/{id}(id=${message.id})}" class="btn btn-danger" role="button">
+                            <strong>Delete</strong> </a>
+                    </div>
+            </tr>
+            </td>
+        </table>
+
+        <br/>
+        <br/>
+
+        <div class="text-center">
+
+
+                <a href="/login" class="btn btn-success" role="button"> <strong>login</strong> </a>
+                <a href="/register" class="btn btn-success" role="button"><strong>Register</strong></a>
+                <div sec:authorize="isAuthenticated()" class="nav-link text-warning" th:inline="text">
+
+                    <a href="/addMessage" class="btn btn-success" role="button">Add Message</a>
+                    <a href="/logout" class="btn btn-success" role="button">logout</a>
+                </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<div th:replace="base ::  footer"></div>
+
+</body>
+</html>
