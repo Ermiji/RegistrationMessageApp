@@ -44,7 +44,7 @@ public class DataLoader implements CommandLineRunner {
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
 
-        Message message= new Message("A test first message ", "Ermias", "11/12/2018");
+        Message message= new Message();
         messageRepository.save(message);
 
     }

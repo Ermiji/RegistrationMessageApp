@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<
 <head>
     <title>Home Page</title>
     <th:block th:insert="base :: header"></th:block>
 </head>
 <body>
-
 <div th:replace="base :: nav"></div>
-
 <div class="container">
-    <div class="text-center text-orange">
+    <div class="text-center text-secondary">
         <br/>
         <br/>
         <h1>
@@ -21,7 +18,7 @@
     <br/>
     <div class="jumbotron text-center">
         <div class="text-center">
-            <h3> List of Messages </h3>
+            <h3>List of Messages</h3>
         </div>
         <br/>
         <table class="table table-borderless table-hover shadow mb-4 bg-white">
@@ -30,7 +27,6 @@
                 <th><strong>Sent by </strong>&nbsp;&nbsp;</th>
                 <th><strong>Date </strong> &nbsp;&nbsp;</th>
             </tr>
-
             <tr th:each="message : ${messages}">
                 <td th:text="${message.content}"></td>
                 <td th:text="${message.sender}"></td>
@@ -46,28 +42,18 @@
             </tr>
             </td>
         </table>
-
         <br/>
         <br/>
-
         <div class="text-center">
-
-
-                <a href="/login" class="btn btn-success" role="button"> <strong>login</strong> </a>
-                <a href="/register" class="btn btn-success" role="button"><strong>Register</strong></a>
-                <div sec:authorize="isAuthenticated()" class="nav-link text-warning" th:inline="text">
-
-                    <a href="/addMessage" class="btn btn-success" role="button">Add Message</a>
-                    <a href="/logout" class="btn btn-success" role="button">logout</a>
-                </div>
-
-
+                <a href="/login" class="btn btn-success" role="button">Login </a>
+                <a href="/register" class="btn btn-success" role="button">Register</a>
         </div>
-
+        <div sec:authorize="isAuthenticated()" class="nav-link text-warning" th:inline="text">
+            <a href="/addMessage" class="btn btn-success" role="button">Add a message</a>
+            <a href="/logout" class="btn btn-success" role="button">Logout</a>
+        </div>
     </div>
 </div>
-
 <div th:replace="base ::  footer"></div>
-
 </body>
 </html>

@@ -5,13 +5,29 @@
     <title>Detailed Information </title>
     <th:block th:insert="base :: header"></th:block>
 </head>
-<body>
-
-<div th:replace="base :: nav"></div>
-
-<div class="container ">
-    <h1> Details performed </h1>
-</div>
-<div th:replace="base :: footer"></div>
+    <div class="my-5 "></div>
+    <div class="my-3 py-4" align="center">
+        <h2 class="text-center py-2">Message Details</h2>
+        <table>
+            <tr class="text-dark">
+                <th class="pr-3">Content</th>
+                <th class="pr-3">Sent by</th>
+                <th class="pr-3">Date</th>
+            </tr>
+            <tr>
+                <td class="pr-4" th:text="${message.content}">  </td>
+                <td class="pr-3" th:text="${message.sender}"> </td>
+                <td class="pr-3" th:text="${message.date}"></td>
+            </tr>
+        </table>
+        <br />
+        <td>
+            <button class="btn btn-color"><a class="text-white" href="/">View All Messages</a></button>
+            <button class="btn btn-color"><a class="text-white"
+                th:href="@{/update/{id}(id=${message.id})}">Update Post</a></button>
+        </td>
+    </div>
+    </div>
+    <div th:replace="base :: footer"></div>
 </body>
 </html>
