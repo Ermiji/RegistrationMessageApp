@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Detailed Information </title>
-    <th:block th:insert="base :: header"></th:block>
+    <th:block th:insert="base :: header">
+    </th:block>
 </head>
-    <div class="my-5 "></div>
-    <div class="my-3 py-4" align="center">
-        <h2 class="text-center py-2">Message Details</h2>
+<body>
+<div th:replace="base :: nav">
+</div>
+<div class="navbar navbar-secondary" style="background-color: #d6d8db">
+    <div class="my-4">
+    </div>
+    <div class="my-3 py-4" align="left">
+        <h1 class="text-center py-2">Message Details</h1>
         <table>
-            <tr class="text-dark">
+            <tr class="text-secondary">
                 <th class="pr-3">Content</th>
                 <th class="pr-3">Sent by</th>
                 <th class="pr-3">Date</th>
@@ -22,8 +28,8 @@
         </table>
         <br />
         <td>
-            <button class="btn btn-color"><a class="text-white" href="/">View All Messages</a></button>
-            <button class="btn btn-color"><a class="text-white"
+            <button class="btn btn-color"><a class="text-green" href="/">View All Messages</a></button>
+            <button class="btn btn-color"><a class="text-green"
                 th:href="@{/update/{id}(id=${message.id})}">Update Post</a></button>
         </td>
     </div>
