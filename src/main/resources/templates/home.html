@@ -1,57 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
-    <title>Home Page</title>
+    <title>Welcome to MessaginApp</title>
     <th:block th:insert="base :: header"></th:block>
 </head>
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-    <div class="text-center text-secondary">
+    <div class="text-center">
         <br/>
-        <br/>
-        <h1>
-            Welcome to Code Work Academy Messaging App!
+        <h1 class="text-secondary">
+            Welcome to Code Work Academy Messaging Application!!!
         </h1>
     </div>
     <br/>
     <br/>
     <div class="jumbotron text-center">
         <div class="text-center">
-            <h3>List of Messages</h3>
+            <h3> Messages </h3>
         </div>
         <br/>
         <table class="table table-borderless table-hover shadow mb-4 bg-white">
-            <tr>
-                <th><strong> Content </strong>&nbsp;&nbsp;</th>
-                <th><strong>Sent by </strong>&nbsp;&nbsp;</th>
-                <th><strong>Date </strong> &nbsp;&nbsp;</th>
-            </tr>
+            <thead>
+            <th>Title </th>
+            <th>Posted By </th>
+            <th>HashTags </th>
+            <th></th>
+            </thead>
             <tr th:each="message : ${messages}">
-                <td th:text="${message.content}"></td>
-                <td th:text="${message.sender}"></td>
+                <td th:text="${message.title}"></td>
                 <td th:text="${message.date}"></td>
+                <td th:text="${message.hashtag}"></td>
                 <td>
-                    <div sec:authorize="isAuthenticated()" class="nav-link text-warning" th:inline="text">
-                        <a th:href="@{/detail/{id}(id=${message.id})}" class="btn btn-outline-success"> <strong>Details</strong> </a>
-                    </div>
-                    <div sec:authorize="hasAuthority('ADMIN')">
-                        <a th:href="@{/delete/{id}(id=${message.id})}" class="btn btn-danger" role="button">
-                            <strong>Delete</strong> </a>
-                    </div>
+                    <a th:inline="text" th:href="@{/detail/{id}(id=${message.id})}" class="btn btn-primary" role="button">
+                        Details </a>
+                    <span th:if="${user_id==message.user.id}">
+                    <a th:href="@{/update/{id}(id=${message.id})}" th:inline="text" class="btn btn-warning">
+                        Update</a>
+                    <a th:href="@{/delete/{id}(id=${message.id})}" th:inline="text" class="btn btn-danger">
+                        Delete </a>
+                    </span>
+                </td>
             </tr>
-            </td>
         </table>
         <br/>
         <br/>
-        <div class="text-center">
-                <a href="/login" class="btn btn-success" role="button">Login </a>
-                <a href="/register" class="btn btn-success" role="button">Register</a>
-        </div>
-        <div sec:authorize="isAuthenticated()" class="nav-link text-warning" th:inline="text">
-            <a href="/addMessage" class="btn btn-success" role="button">Add a message</a>
-            <a href="/logout" class="btn btn-success" role="button">Logout</a>
-        </div>
     </div>
 </div>
 <div th:replace="base ::  footer"></div>

@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserRepository userRepository;
 
     @Override
-    public UserDetailsService userDetailsServiceBean() {
+    public UserDetailsService userDetailsServiceBean() throws Exception {
         return new SSUserDetailsService(userRepository );
     }
 
@@ -44,16 +44,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic();
 
-        http
-                .csrf().disable();
-        http
-                .headers().frameOptions().disable();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth
-                .userDetailsService((userDetailsServiceBean()))
+        auth.userDetailsService((userDetailsServiceBean()))
                 .passwordEncoder(encoder());
     }
 }

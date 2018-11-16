@@ -9,44 +9,47 @@ import java.util.Arrays;
 
 @Component
 public class DataLoader implements CommandLineRunner {
-
     @Autowired
-    MessageRepository messageRepository;
+    UserRepository userRepository;
 
     @Autowired
     RoleRepository roleRepository;
 
-
     @Autowired
-    UserRepository userRepository;
+    MessageRepository messageRepository;
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... strings) throws Exception{
-        roleRepository.save(new Role("USER"));
-        roleRepository.save(new Role("ADMIN"));
+    public void run(String... strings) throws Exception {
 
-        Role adminRole = roleRepository.findByRole("ADMIN");
-        Role userRole = roleRepository.findByRole("USER");
+        boolean rundataloader = false;
 
-        User user = new User("jim@jim.com", passwordEncoder.encode("password"), "Jim", "Jimmerson", true,
-                "jim");
-        user.setRoles(Arrays.asList(userRole));
-        userRepository.save(user);
 
-        user = new User("admin@admin.com", passwordEncoder.encode("password"),
-                "Admin",
-                "User",
-                true,
-                "admin");
-        user.setRoles(Arrays.asList(adminRole));
-        userRepository.save(user);
+        if (rundataloader) {
+            roleRepository.save(new Role("USER"));
+            roleRepository.save(new Role("ADMIN"));
 
-        Message message= new Message();
-        messageRepository.save(message);
+            Role adminRole = roleRepository.findByRole("ADMIN");
+            Role userRole = roleRepository.findByRole("USER");
 
+            User user = new User("jim@jim.com", passwordEncoder.encode("password"), "Jim", "Jimmerson", true,
+                    "jim","reading and soccer");
+            user.setRoles(Arrays.asList(userRole));
+            userRepository.save(user);
+
+            user = new User("admin@admin.com", passwordEncoder.encode("password"),
+                    "Admin",
+                    "User", true,
+                    "admin","Jogging and cycling");
+            user.setRoles(Arrays.asList(adminRole));
+            userRepository.save(user);
+
+            Message message= new Message("Developer","dguorlfcw","portrait.png","#Computer","11-15-2018");
+            messageRepository.save(message);
+        }
     }
 
 }

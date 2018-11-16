@@ -1,55 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Message Adding </title>
     <th:block th:insert="base :: header"></th:block>
 </head>
 <body>
 <div th:replace="base :: nav"></div>
+<br />
+<br />
 <div class="container">
     <div class="bg-light form">
-        <h3 class="text-center py-3">Add a Message</h3>
-        <form action="#"
-              th:action="@{/addMessage}"
-              th:object="${message}"
-              method="post">
+        <h2 class="text-center py-3">Add a Message</h2>
+        <br />
+        <form action="#" th:action="@{/addMessage}" th:object="${message}" enctype="multipart/form-data" method="post">
             <input type="hidden" th:field="*{id}">
             <div class="form-group row">
-                <label for="messageInput" class="col-sm-3 col-form-label">
-                    &nbsp;Enter your message:</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control form-group col-sm-5"
-                              id="messageInput" rows="3" cols="106"
-                              placeholder="Type a message!" th:field="*{content}" name="content"></textarea>
-                    <br/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="dateInput" class="col-sm-3 col-form-label">&nbsp;Message post date :</label>
+                <label for="dateInput" class="col-sm-3 col-form-label">&nbsp; Title:</label>
                 <div class="col-sm-4">
-                    <input type="date" class="form-control" id="dateInput" th:field="*{date}" name="datePosted" value="">
-                    <br/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="nameInput" class="col-sm-3 col-form-label">&nbsp;Message sent by:</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" th:field="*{sender}" id="nameInput" name="setBy" value="">
+                    <input type="text" placeholder="title!" th:field="*{title}" class="form-control" id="title" name="title" >
                     <br/><br/>
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-10 text-center">
-                    <td>
-                        <button type="submit" class="btn btn-color text-green">Submit</button>
-                        <button type="reset" class="btn btn-btn-color text-yellow">Reset</button>
-                    </td>
+                <label for="messageInput" class="col-sm-3 col-form-label">&nbsp; Content: </label>
+                <div class="col-sm-9">
+                    <textarea class="form-control form-group col-sm-6"
+                              id="messageInput" rows="3" cols="110"
+                              placeholder="Type your message!" th:field="*{content}"name="content"></textarea>
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                <label for="dateInput" class="col-sm-3 col-form-label">&nbsp;HashTags:</label>
+                <div class="col-sm-4">
+                    <input type="text" placeholder="hash tags!" th:field="*{hashtag}"   class="form-control" id="hashtag" name="hashtag" >
+                    <br/>
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="dateInput" class="col-sm-3 col-form-label">&nbsp;Message Post Date :
+                </label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" th:field="*{date}" id="dateInput" name="date" >
+                    <br/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="dateInput" class="col-sm-2 col-form-label"> &nbsp; File : </label>
+                <div class="col-sm-10">
+                    <input type="file" name="file" />
+                    <span th:if="${#fields.hasErrors('img')}" th:errors="*{img}"></span><br />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 text-center">
+                    <button type="submit" class="btn btn-outline-success text-black" role="button">Submit</button>
+                </div>
+            </div>
+            <br />
         </form>
     </div>
 </div>
-<div th:replace="base :: footer"></div>
+<div th:replace="base :: footer">
+</div>
 </body>
 </html>

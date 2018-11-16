@@ -10,10 +10,10 @@ import java.util.Arrays;
 @Service
 public class UserService {
     @Autowired
-    RoleRepository roleRepository;
+    UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    RoleRepository roleRepository;
 
     @Autowired
     public UserService(UserRepository userRepository)
@@ -52,11 +52,12 @@ public class UserService {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        String oldusername = authentication.getName();
+        String currentusername = authentication.getName();
 
-        User user = userRepository.findByUsername(oldusername);
+        User user = userRepository.findByUsername(currentusername);
 
         return user;
     }
+
 
 }

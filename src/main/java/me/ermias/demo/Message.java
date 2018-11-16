@@ -1,28 +1,50 @@
 package me.ermias.demo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class Message {
-
+public class Message{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String sender;
+    @NotNull
+    private String title;
+
+    @NotNull
     private String content;
+
+    private String img;
+
+    private  String hashtag;
+
+    @NotNull
     private String date;
+
+
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Message() {
     }
 
-    public Message(String content, String sender, String date) {
+    public Message(String title, String content,
+                   String img, String hashtag, String date) {
+        this.title=title;
         this.content = content;
-        this.sender = sender;
+        this.img = img;
+        this.hashtag=hashtag;
         this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public long getId() {
@@ -32,13 +54,28 @@ public class Message {
     public void setId(long id) {
         this.id = id;
     }
-
-    public String getSender() {
-        return sender;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getHashtag() {
+        return hashtag;
+    }
+
+    public void setHashtag(String hashtag) {
+        this.hashtag = hashtag;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getContent() {
@@ -48,7 +85,6 @@ public class Message {
     public void setContent(String content) {
         this.content = content;
     }
-
 
     public String getDate() {
         return date;

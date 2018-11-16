@@ -3,7 +3,9 @@ package me.ermias.demo;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name="User_Data")
@@ -28,26 +30,36 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled;
 
+    @Column(name = "hobby")
+    private String hobby;
+
     @Column(name = "username")
     private String username;
 
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
 
+
+    @OneToMany
+    private List<Message> messages;
+
     public User() {
+        messages=new ArrayList<>();
     }
 
-    public User(String email, String password,
-                String firstName, String lastName,
-                boolean enabled, String username) {
+    public User(String email, String password, String firstName,
+                String lastName, boolean enabled, String username, String hobby) {
         this.email = email;
         this.password = password;
+        this.password=password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
         this.username = username;
+        this.hobby = hobby;
     }
 
     public long getId() {
@@ -99,6 +111,14 @@ public class User {
         this.enabled = enabled;
     }
 
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -114,4 +134,12 @@ public class User {
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
-}
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+    }

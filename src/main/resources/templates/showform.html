@@ -1,39 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Detailed Information </title>
-    <th:block th:insert="base :: header">
-    </th:block>
+<html lang="en" xmlns:th="www.thymeleaf.org"><head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <th:block th:insert="base :: header"></th:block>
 </head>
 <body>
-<div th:replace="base :: nav">
+<div th:replace="base :: nav"></div>
+<div class="container bg-secondary align-content-center">
+    <div class="my-4 "></div>
+    <h2 class="text-center">View Message Detail</h2>
+    <div>
+        Title:
+        <span><a class="pr-4" th:text="${message.title}"> </a></span><br/>
+    </div>
+    <p class="detail-img">
+        <img id="gravatar" th:src="${message.img}" alt="post image"/>
+    </p>
+    <p>
+        Content:
+        <span><a class="pr-4" th:text="${message.content}"> </a></span></p>
+    <p>
+        HashTags:
+        <span><a class="pr-4" th:text="${message.hashtag}"> </a>
+                    </span>&nbsp;
+    </p>
+    <p>
+        Posted by:
+            <a href="@{/myprofile/{id}(id=${user.id})}">
+                <a class="pr-4" th:text="${message.user.firstName}"> </a>
+            </a>
+        <span><a class="pr-4" th:text="${message.date}"></a></span>
+    </p>
+    <br />
+    <p>
+        <span th:if="${user_id==message.user.id}">
+            <a class="btn btn-primary" th:inline="text" th:href="@{/update/{id}(id=${message.id})}">Update</a>
+            <a class="btn btn-danger" th:inline="text" th:href="@{/delete/{id}(id=${message.id})}">Delete</a>
+        </span>
+    </p>
 </div>
-<div class="navbar navbar-secondary" style="background-color: #d6d8db">
-    <div class="my-4">
-    </div>
-    <div class="my-3 py-4" align="left">
-        <h1 class="text-center py-2">Message Details</h1>
-        <table>
-            <tr class="text-secondary">
-                <th class="pr-3">Content</th>
-                <th class="pr-3">Sent by</th>
-                <th class="pr-3">Date</th>
-            </tr>
-            <tr>
-                <td class="pr-4" th:text="${message.content}">  </td>
-                <td class="pr-3" th:text="${message.sender}"> </td>
-                <td class="pr-3" th:text="${message.date}"></td>
-            </tr>
-        </table>
-        <br />
-        <td>
-            <button class="btn btn-color"><a class="text-green" href="/">View All Messages</a></button>
-            <button class="btn btn-color"><a class="text-green"
-                th:href="@{/update/{id}(id=${message.id})}">Update Post</a></button>
-        </td>
-    </div>
-    </div>
-    <div th:replace="base :: footer"></div>
+</div>
+<div class="emptySpace"></div>
+<div th:replace="base :: footer"></div>
 </body>
 </html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <th:block th:insert="base :: header"></th:block>
+</head>
+<body>
+
+<div th:replace="base :: nav"></div>
+
+<div class="container">
+
+    <div class="text-center">
+
+        <div class="text-white-40">
+            <p> [[${user.firstName}]] [[${user.lastName}]] </p>
+        </div>
+    </div>
+    <br />
+    <table class="table table-borderless table-hover shadow mb-4 bg-white">
+        <div class="text-lg-center">
+            <h4> [[${user.firstName}]]</h4><br>
+            <h5> [[${user.email}]] </h5>
+        </div>
+        <div class="text-white-50">
+            <p> [[${user.hobby}]] </p>
+        </div>
+
+        <div id="div1">
+            <img class="image" th:src="${message.user.image}" alt="message picture">
+        </div>
+    </table>
+</div>
+
+<div th:replace="base :: footer"></div>
+
+</body>
+</html>
